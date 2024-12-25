@@ -22,7 +22,7 @@ const PendingPage = (props: Props) => {
   }, [QRImage]);
 
   return (
-    <div className="flex justify-center min-h-screen items-center bg-[#2a2a2a] flex-col gap-8">
+    <div className="flex justify-center min-h-screen items-center bg-[#101828] flex-col gap-8">
       <span className="text-[#eef5f6] text-[48px] font-bold ">
         {paymentData.amount} {process.env.NEXT_PUBLIC_TOKEN_SYMBOL}
       </span>

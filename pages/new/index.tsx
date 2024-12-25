@@ -45,8 +45,8 @@ const NewPage = (props: Props) => {
     fetchApi();
   }, [setApiInstance]);
   return (
-    <div className="flex justify-center items-center h-screen max-w-screen bg-[#222222]">
-      <div className="min-h-fit flex flex-col justify-center items-center bg-[#2a2a2a] p-10 rounded gap-8">
+    <div className="flex justify-center items-center h-screen max-w-screen bg-[#101828]">
+      <div className="min-h-fit flex flex-col justify-center items-center bg-[#141d31] p-10 rounded gap-8">
         <div className="flex flex-col gap-4 items-center text-white w-full ">
           <div className="w-full">
             <Connect />

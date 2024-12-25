@@ -127,14 +127,23 @@ const CreateTransactionButton = () => {
           </span>
         </div>
       ) : (
-        <button
-          disabled={isSigning || isValidating}
-          type="button"
-          className="rounded-md bg-white/10 px-4 py-3 text-[16px] font-semibold text-white shadow-sm hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-80"
-          onClick={() => signTransaction(transactionData.transaction!)}
-        >
-          Sign Transaction
-        </button>
+        <div className="flex gap-4 items-center">
+          <button
+            type="button"
+            className="rounded-md  px-4 py-3 text-[16px] font-semibold text-white shadow-sm hover:underline disabled:cursor-not-allowed disabled:opacity-80"
+            onClick={() => signTransaction(transactionData.transaction!)}
+          >
+            Cancel Transaction
+          </button>
+          <button
+            disabled={isSigning || isValidating}
+            type="button"
+            className="rounded-md bg-white/10 px-4 py-3 text-[16px] font-semibold text-white shadow-sm hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-80"
+            onClick={() => signTransaction(transactionData.transaction!)}
+          >
+            Sign Transaction
+          </button>
+        </div>
       )}
     </div>
   );
