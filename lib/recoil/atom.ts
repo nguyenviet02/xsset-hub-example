@@ -6,6 +6,7 @@ export const configState = atom<IConfigState>({
   key: 'configState',
   default: {
     selectedAccount: null,
+    accounts: [],
     injector: null,
   },
 });

@@ -63,16 +63,16 @@ const CreateTransactionButton = () => {
           amount: new BN(paymentData.amount * 10 ** Number(tokenDecimal)),
           reference: paymentData.reference,
         });
-				toast.dismiss();
+        toast.dismiss();
         // Update payment status
-				toast.success('Payment validated');
+        toast.success('Payment validated');
         console.log('✅ Payment validated');
         console.log('📦 Ship order to customer');
         setPaymentData((prev) => ({ ...prev, status: PAYMENT_STATUS.SUCCESS }));
       } catch (error) {
         console.error('❌ Payment failed', error);
         toast.dismiss();
-				toast.error('Payment failed');
+        toast.error('Payment failed');
         setPaymentData((prev) => ({ ...prev, status: PAYMENT_STATUS.FAILED, errorMessage: error.message }));
       }
     };
@@ -88,7 +88,7 @@ const CreateTransactionButton = () => {
   }, [setApiInstance, setConfig]);
 
   return (
-    <button type="button" className="rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20" onClick={() => signTransaction(transactionData.transaction!)}>
+    <button type="button" className="rounded-md bg-white/10 px-4 py-3 text-[16px] font-semibold text-white shadow-sm hover:bg-white/20" onClick={() => signTransaction(transactionData.transaction!)}>
       Sign Transaction
     </button>
   );

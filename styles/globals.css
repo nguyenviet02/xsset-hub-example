@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .numPadButton {
+    width: 80px;
+    height: 80px;
+    margin: 12px;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 100ms ease-in-out;
+    background-color: #464b53;
+    color: #fff;
+  }
+}
