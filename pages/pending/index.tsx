@@ -2,7 +2,6 @@ import React, { useEffect, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import { paymentState, transactionDataState } from '../../lib/recoil/atom';
 import { createQR } from 'its-stg-pp';
-import Image from 'next/image';
 import CreateTransactionButton from '../../components/SignTransactionButton';
 
 type Props = {};
@@ -11,7 +10,6 @@ const PendingPage = (props: Props) => {
   const QRRef = React.useRef<HTMLDivElement>(null);
   const paymentData = useRecoilValue(paymentState);
   const transactionData = useRecoilValue(transactionDataState);
-  console.log('☠️ ~ PendingPage ~ transactionData:', transactionData);
 
   const QRImage = useMemo(() => {
     return createQR(transactionData.url);
