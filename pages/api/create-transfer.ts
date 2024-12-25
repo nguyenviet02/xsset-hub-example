@@ -1,5 +1,5 @@
 import { BN } from 'bn.js';
-import { createTransfer } from 'its-stg-pp';
+import { createTransfer, encodeURL } from 'its-stg-pp';
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { getApiInstance } from '../../core/api';
 
@@ -16,8 +16,13 @@ const post: NextApiHandler = async (request: NextApiRequest, response: NextApiRe
       amount: new BN(transferField.amount),
       reference: transferField.reference,
     });
+    const transactionURL = encodeURL({
+      recipient: transferField.recipient,
+      amount: transferField.amount,
+      reference: transferField.reference,
+    });
     if (transaction) {
-      response.status(200).send({ transaction, message: 'Transaction created' });
+      response.status(200).send({ transaction, transactionURL, message: 'Transaction created' });
     }
   } catch (error) {
     response.status(500).send({ message: error.message });

@@ -3,9 +3,10 @@ import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { configState, paymentState } from '../../lib/recoil/atom';
-import CreateTransactionButton from '../../components/CreateTransactionButton';
+import CreateTransactionButton from '../../components/SignTransactionButton';
 import { getApiInstance } from '../../core/api';
 import { ApiPromise } from '@polkadot/api';
+import GenerateTransactionButton from '../../components/GenerateTransactionButton';
 
 type Props = {};
 
@@ -72,7 +73,7 @@ const NewPage = (props: Props) => {
         <div>
           <Connect />
         </div>
-        {config.selectedAccount && <CreateTransactionButton />}
+        {config.selectedAccount && <GenerateTransactionButton apiInstance={apiInstance} disabled={paymentData.amount === 0} />}
       </div>
     </div>
   );

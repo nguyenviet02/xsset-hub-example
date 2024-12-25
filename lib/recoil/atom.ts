@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { ApiPromise, WsProvider } from '@polkadot/api';
-import { IConfigState, IPaymentState, PAYMENT_STATUS } from '../../types';
+import { IConfigState, IPaymentState, ITransactionDataState, PAYMENT_STATUS } from '../../types';
 
 export const configState = atom<IConfigState>({
   key: 'configState',
@@ -22,5 +22,13 @@ export const paymentState = atom<IPaymentState>({
     amount: 0,
     status: PAYMENT_STATUS.FUTURE,
     errorMessage: '',
+  },
+});
+
+export const transactionDataState = atom<ITransactionDataState>({
+  key: 'transactionDataState',
+  default: {
+    transaction: null,
+    url: '',
   },
 });
