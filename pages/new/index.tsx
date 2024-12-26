@@ -52,7 +52,7 @@ const NewPage = (props: Props) => {
             <Connect />
           </div>
         </div>
-        <div className="flex flex-col gap-4 min-w-[375px]  h-full">
+        <div className="flex flex-col gap-4 min-w-[375px] w-full  h-full">
           <div className="w-full flex justify-between items-center">
             <span className="text-white font-bold">Amount</span>
             <div className="w-fit text-white font-bold">
@@ -68,13 +68,13 @@ const NewPage = (props: Props) => {
             value={Number(paymentData.amount)}
             type="number"
             min={0}
-            className="py-3 px-4 block w-full max-w-[400px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+            className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
           />
         </div>
         <div className="flex flex-col gap-4 min-w-[375px]  h-full">
           <div className="w-full flex gap-1 items-center">
             <span className="text-white font-bold">Recipient: </span>
-            <span className="text-white font-bold">{beatifyAddress(recipient, 10)}</span>
+            <span className="text-white font-bold">{recipient}</span>
           </div>
         </div>
         {config.selectedAccount && <GenerateTransactionButton apiInstance={apiInstance} disabled={paymentData.amount === 0} />}
