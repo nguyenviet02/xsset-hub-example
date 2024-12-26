@@ -23,8 +23,8 @@ const GenerateTransactionButton = ({ disabled, apiInstance }: Props) => {
   const tokenDecimal = process.env.NEXT_PUBLIC_TOKEN_DECIMALS;
 
   const onClick = async () => {
-    const reference = uuidv4();
-    setPaymentData((prev) => ({ ...prev, reference, status: PAYMENT_STATUS.PENDING }));
+    const remark = uuidv4();
+    setPaymentData((prev) => ({ ...prev, remark, status: PAYMENT_STATUS.PENDING }));
     toast.loading('Generating transaction, you will be redirect to payment page soon');
     const response = await fetch('/api/create-transfer', {
       method: 'POST',
@@ -33,7 +33,7 @@ const GenerateTransactionButton = ({ disabled, apiInstance }: Props) => {
         transferField: {
           recipient,
           amount: paymentData.amount * 10 ** Number(tokenDecimal),
-          reference: reference,
+          remark,
         },
       }),
     });

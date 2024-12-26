@@ -19,7 +19,7 @@ export const apiState = atom<ApiPromise | null>({
 export const paymentState = atom<IPaymentState>({
   key: 'paymentState',
   default: {
-    reference: '',
+    remark: '',
     amount: 0,
     status: PAYMENT_STATUS.FUTURE,
     errorMessage: '',

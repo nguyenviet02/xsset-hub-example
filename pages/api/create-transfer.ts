@@ -1,5 +1,5 @@
 import { BN } from 'bn.js';
-import { createTransfer, encodeURL } from 'its-stg-pp';
+import { createTransfer, encodeURL, RelayChain } from 'its-stg-pp';
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { getApiInstance } from '../../core/api';
 
@@ -14,12 +14,15 @@ const post: NextApiHandler = async (request: NextApiRequest, response: NextApiRe
     const transaction = await createTransfer(apiInstance, sender, {
       recipient: transferField.recipient,
       amount: new BN(transferField.amount),
-      reference: transferField.reference,
+      remark: transferField.remark,
+      tokenId: 'WND',
     });
     const transactionURL = encodeURL({
       recipient: transferField.recipient,
       amount: transferField.amount,
-      reference: transferField.reference,
+      remark: transferField.remark,
+      tokenId: 'WND',
+      relay: RelayChain.WND,
     });
     if (transaction) {
       response.status(200).send({ transaction, transactionURL, message: 'Transaction created' });

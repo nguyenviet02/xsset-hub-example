@@ -9,7 +9,7 @@ export interface IConfigState {
 }
 
 export interface IPaymentState {
-  reference: string;
+  remark: string;
   amount: number;
   status: PAYMENT_STATUS;
   errorMessage: string;

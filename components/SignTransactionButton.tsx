@@ -4,7 +4,7 @@ import { PAYMENT_STATUS } from '../types';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { configState, paymentState, transactionDataState } from '../lib/recoil/atom';
 import { getApiInstance } from '../core/api';
-import { findReference, Recipient, validateTransfer } from 'its-stg-pp';
+import { findRemark, Recipient, validateTransfer } from 'its-stg-pp';
 import BN from 'bn.js';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { ISubmittableResult } from '@polkadot/types/types';
@@ -52,15 +52,15 @@ const CreateTransactionButton = () => {
     const validateTransaction = async () => {
       setIsValidating(true);
       toast.loading('Validating transaction, please wait...');
-      const findReferenceResponse = await findReference(apiInstance!, paymentData.reference, { retryBlock: 10 });
-      if (!findReferenceResponse) {
+      const findRemarkResponse = await findRemark(apiInstance!, paymentData.remark, { retryBlock: 10 });
+      if (!findRemarkResponse) {
         console.log('🟥 Cannot found target extrinsic not found');
         toast.error('Cannot found target extrinsic not found');
         setIsValidating(false);
         return;
       }
-      const { blockHash, extrinsicHash } = findReferenceResponse;
-      console.log('Founded Reference:', {
+      const { blockHash, extrinsicHash } = findRemarkResponse;
+      console.log('Founded Remark:', {
         blockHash: blockHash.toHex(),
         extrinsicHash: extrinsicHash.toHex(),
       });
@@ -74,7 +74,8 @@ const CreateTransactionButton = () => {
         await validateTransfer(apiInstance!, blockHash, extrinsicHash, {
           recipient: recipient as Recipient,
           amount: new BN(paymentData.amount * 10 ** Number(tokenDecimal)),
-          reference: paymentData.reference,
+          remark: paymentData.remark,
+          tokenId: 'WND',
         });
         toast.dismiss();
         // Update payment status
@@ -92,7 +93,7 @@ const CreateTransactionButton = () => {
       }
     };
     validateTransaction();
-  }, [apiInstance, hasNewTransaction, paymentData.amount, paymentData.reference, setPaymentData]);
+  }, [apiInstance, hasNewTransaction, paymentData.amount, paymentData.remark, setPaymentData]);
 
   useEffect(() => {
     async function fetchApi() {
