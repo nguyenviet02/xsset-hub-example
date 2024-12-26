@@ -5,6 +5,7 @@ import { createQR } from 'its-stg-pp';
 import SignTransactionButton from '../../components/SignTransactionButton';
 import CancelTransactionButton from '../../components/CancelTransactionButton';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 type Props = {};
 
@@ -40,6 +41,9 @@ const PendingPage = (props: Props) => {
 
   return (
     <div className="flex justify-center min-h-screen items-center bg-[#101828] flex-col gap-8">
+      <Head>
+        <title>Waiting For Payment</title>
+      </Head>
       {!paymentData.amount || !paymentData.remark || !transactionData.url ? (
         <div className="w-full h-full flex flex-col gap-4 items-center">
           <span className="text-[#eef5f6] font-bold text-[24px]">No transaction data found</span>

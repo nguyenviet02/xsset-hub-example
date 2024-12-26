@@ -8,6 +8,7 @@ import GenerateTransactionButton from '../../components/GenerateTransactionButto
 import { beatifyAddress } from '../../core/beatifyAddress';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
+import Head from 'next/head';
 
 type Props = {};
 
@@ -47,6 +48,9 @@ const NewPage = (props: Props) => {
   }, [setApiInstance]);
   return (
     <div className="flex justify-center items-center h-screen max-w-screen bg-[#101828]">
+      <Head>
+        <title>Create New Transaction</title>
+      </Head>
       <div className="min-h-fit flex flex-col justify-center items-center bg-[#141d31] p-10 rounded-lg gap-8 border border-[#1e293b]">
         <div className="flex flex-col gap-4 items-center text-white w-full ">
           <div className="w-full">
@@ -125,7 +129,7 @@ const NewPage = (props: Props) => {
             onChange={handleInputChange}
             value={paymentData.amount.toString()}
             type="number"
-						step="any"
+            step="any"
             min={0}
             className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
           />
