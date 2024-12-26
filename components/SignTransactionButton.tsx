@@ -9,10 +9,11 @@ import BN from 'bn.js';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { ISubmittableResult } from '@polkadot/types/types';
 import { toast } from 'react-toastify';
+import CancelTransactionButton from './CancelTransactionButton';
 
 type Props = {};
 
-const CreateTransactionButton = () => {
+const SignTransactionButton = () => {
   const [apiInstance, setApiInstance] = useState<ApiPromise>();
   const [paymentData, setPaymentData] = useRecoilState(paymentState);
   const [config, setConfig] = useRecoilState(configState);
@@ -46,7 +47,7 @@ const CreateTransactionButton = () => {
   };
 
   useEffect(() => {
-    if (!apiInstance || !hasNewTransaction) return;
+    if (!apiInstance || !hasNewTransaction || !paymentData.amount) return;
     const recipient = process.env.NEXT_PUBLIC_RECIPIENT;
     const tokenDecimal = process.env.NEXT_PUBLIC_TOKEN_DECIMALS;
     const validateTransaction = async () => {
@@ -115,12 +116,6 @@ const CreateTransactionButton = () => {
       {hashData.blockHash || hashData.extrinsicHash ? (
         <div className="bg-white p-4 rounded-md flex flex-col gap-2">
           <span>
-            Block Hash:{' '}
-            <a className="underline" href={`https://westend.subscan.io/extrinsic/${hashData.blockHash}`}>
-              {hashData.blockHash}
-            </a>
-          </span>
-          <span>
             Extrinsic Hash:{' '}
             <a className="underline" href={`https://westend.subscan.io/extrinsic/${hashData.extrinsicHash}`}>
               {hashData.extrinsicHash}
@@ -129,13 +124,7 @@ const CreateTransactionButton = () => {
         </div>
       ) : (
         <div className="flex gap-4 items-center">
-          <button
-            type="button"
-            className="rounded-md  px-4 py-3 text-[16px] font-semibold text-white shadow-sm hover:underline disabled:cursor-not-allowed disabled:opacity-80"
-            onClick={() => signTransaction(transactionData.transaction!)}
-          >
-            Cancel Transaction
-          </button>
+          <CancelTransactionButton />
           <button
             disabled={isSigning || isValidating}
             type="button"
@@ -150,4 +139,4 @@ const CreateTransactionButton = () => {
   );
 };
 
-export default CreateTransactionButton;
+export default SignTransactionButton;

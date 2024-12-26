@@ -5,6 +5,7 @@ import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { useRecoilState } from 'recoil';
 import { configState } from '../lib/recoil/atom';
 import { beatifyAddress } from '../core/beatifyAddress';
+import Image from 'next/image';
 
 type TExtensionState = {
   data?: {
@@ -105,10 +106,18 @@ export const Connect = () => {
             >
               {config.accounts.map((account) => (
                 <option key={account.address} value={account.address}>
-                  {beatifyAddress(account.address)}
+                  {beatifyAddress(account.address, 10)}
                 </option>
               ))}
             </select>
+            <Image
+              src={'/down-arrow.svg'}
+              aria-hidden="true"
+              className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+              alt="down-arrow"
+              width={24}
+              height={24}
+            />
           </div>
         </div>
       )}
