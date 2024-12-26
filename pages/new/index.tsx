@@ -6,6 +6,8 @@ import { getApiInstance } from '../../core/api';
 import { ApiPromise } from '@polkadot/api';
 import GenerateTransactionButton from '../../components/GenerateTransactionButton';
 import { beatifyAddress } from '../../core/beatifyAddress';
+import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 type Props = {};
 
@@ -46,7 +48,7 @@ const NewPage = (props: Props) => {
   }, [setApiInstance]);
   return (
     <div className="flex justify-center items-center h-screen max-w-screen bg-[#101828]">
-      <div className="min-h-fit flex flex-col justify-center items-center bg-[#141d31] p-10 rounded gap-8">
+      <div className="min-h-fit flex flex-col justify-center items-center bg-[#141d31] p-10 rounded-lg gap-8 border border-[#1e293b]">
         <div className="flex flex-col gap-4 items-center text-white w-full ">
           <div className="w-full">
             <Connect />
@@ -75,6 +77,20 @@ const NewPage = (props: Props) => {
           <div className="w-full flex gap-1 items-center">
             <span className="text-white font-bold">Recipient: </span>
             <span className="text-white font-bold">{recipient}</span>
+            <button>
+              <Image
+                src="/copy.svg"
+                alt="copy"
+                width={24}
+                height={24}
+                onClick={() => {
+                  navigator.clipboard.writeText(recipient);
+                  toast.success('Recipient copied to clipboard', {
+                    autoClose: 2000,
+                  });
+                }}
+              />
+            </button>
           </div>
         </div>
         {config.selectedAccount && <GenerateTransactionButton apiInstance={apiInstance} disabled={paymentData.amount === 0} />}
