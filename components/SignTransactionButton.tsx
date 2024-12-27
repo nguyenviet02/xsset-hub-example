@@ -93,7 +93,7 @@ const SignTransactionButton = () => {
       }
     };
     validateTransaction();
-  }, [apiInstance, hasNewTransaction, paymentData, setPaymentData]);
+  }, [apiInstance, hasNewTransaction, paymentData.amount, paymentData.recipient, paymentData.remark, setPaymentData]);
 
   useEffect(() => {
     async function fetchApi() {

@@ -45,6 +45,10 @@ const NewPage = (props: Props) => {
     }
     fetchApi();
   }, [setApiInstance]);
+
+  useEffect(() => {
+    toast.dismiss();
+  }, []);
   return (
     <div className="flex justify-center items-center h-screen max-w-screen bg-[#101828]">
       <Head>
