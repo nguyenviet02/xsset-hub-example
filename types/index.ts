@@ -9,6 +9,7 @@ export interface IConfigState {
 }
 
 export interface IPaymentState {
+  recipient: string;
   remark: string;
   amount: number;
   status: PAYMENT_STATUS;
@@ -28,4 +29,3 @@ export enum PAYMENT_STATUS {
 }
 
 export type Digits = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-

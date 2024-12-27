@@ -28,7 +28,6 @@ const NewPage = (props: Props) => {
     setPaymentData((prev) => ({ ...prev, amount: Number(e.target.value.toString()) }));
   };
 
-  const recipient = process.env.NEXT_PUBLIC_RECIPIENT || '';
   useEffect(() => {
     if (!apiInstance || !config.selectedAccount?.address) return;
     const getBalance = async () => {
@@ -51,22 +50,22 @@ const NewPage = (props: Props) => {
       <Head>
         <title>Create New Transaction</title>
       </Head>
-      <div className="min-h-fit flex flex-col justify-center items-center bg-[#141d31] p-10 rounded-lg gap-8 border border-[#1e293b]">
+      <div className="min-h-fit flex flex-col justify-center items-center bg-[#141d31] p-10 rounded-lg gap-5 border border-[#1e293b]">
         <div className="flex flex-col gap-4 items-center text-white w-full ">
           <div className="w-full">
             <Connect />
           </div>
         </div>
-        <div className="flex flex-col gap-4 min-w-[375px] w-full  h-full">
+        <div className="flex flex-col gap-2 min-w-[375px] w-full  h-full">
           <div className="w-full flex justify-between items-center">
             <span className="text-white font-bold">Recipient</span>
           </div>
-          <div className="flex items-center rounded-md bg-white/10 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20">
+          <div className="flex items-center rounded-md bg-white px-3.5 text-sm shadow-sm">
             <input
-              value={beatifyAddress(recipient, 10)}
               type="text"
-              disabled
-              className="py-3 px-4 block w-full bg-transparent border-none outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-70 disabled:pointer-events-none dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+              value={paymentData.recipient}
+              onChange={(e) => setPaymentData((prev) => ({ ...prev, recipient: e.target.value }))}
+              className="py-3 pr-4 block w-full bg-transparent border-none outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-70 disabled:pointer-events-none dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
             />
             <button>
               <Image
@@ -84,19 +83,19 @@ const NewPage = (props: Props) => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col gap-4 min-w-[375px] w-full  h-full">
+        <div className="flex flex-col gap-2 min-w-[375px] w-full  h-full">
           <div className="w-full flex  items-center gap-1 text-white font-bold">
             <span>Remark</span>
-            <a className="underline text-[14px]" href="https://www.base64encode.org/">
-              (Encode with base64 format)
+            <a className="underline text-[14px]" href="https://www.base64encode.org/" target="_blank" rel="noreferrer">
+              (encoded with base64 format)
             </a>
           </div>
-          <div className="flex items-center rounded-md bg-white/10 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-white/20">
+          <div className="flex items-center rounded-md bg-white px-3.5 text-sm shadow-sm">
             <input
-              value={paymentData.remark}
               type="text"
-              disabled
-              className="py-3 px-4 block w-full bg-transparent border-none outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-70 disabled:pointer-events-none dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+              value={paymentData.remark}
+              onChange={(e) => setPaymentData((prev) => ({ ...prev, remark: e.target.value }))}
+              className="py-3 pr-4 block w-full bg-transparent border-none outline-none rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-70 disabled:pointer-events-none dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
             />
             <button>
               <Image
@@ -106,7 +105,7 @@ const NewPage = (props: Props) => {
                 height={24}
                 onClick={() => {
                   navigator.clipboard.writeText(paymentData.remark);
-                  toast.success('Remark copied to clipboard', {
+                  toast.success('Recipient copied to clipboard', {
                     autoClose: 2000,
                   });
                 }}
@@ -114,7 +113,7 @@ const NewPage = (props: Props) => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col gap-4 min-w-[375px] w-full  h-full">
+        <div className="flex flex-col gap-2 min-w-[375px] w-full  h-full">
           <div className="w-full flex justify-between items-center">
             <span className="text-white font-bold">Amount</span>
             <div className="w-fit text-white font-bold">
@@ -134,7 +133,7 @@ const NewPage = (props: Props) => {
             className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
           />
         </div>
-        {config.selectedAccount && <GenerateTransactionButton apiInstance={apiInstance} disabled={paymentData.amount === 0} />}
+        {config.selectedAccount && <GenerateTransactionButton apiInstance={apiInstance} disabled={paymentData.amount === 0 || !paymentData.recipient || !paymentData.remark} />}
       </div>
     </div>
   );

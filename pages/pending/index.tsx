@@ -17,7 +17,7 @@ const PendingPage = (props: Props) => {
 
   const QRImage = useMemo(() => {
     if (!transactionData.url) return;
-    return createQR(transactionData.url);
+    return createQR(transactionData.url, 375);
   }, [transactionData.url]);
 
   useEffect(() => {

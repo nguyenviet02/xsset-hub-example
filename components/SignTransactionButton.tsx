@@ -48,7 +48,6 @@ const SignTransactionButton = () => {
 
   useEffect(() => {
     if (!apiInstance || !hasNewTransaction || !paymentData.amount) return;
-    const recipient = process.env.NEXT_PUBLIC_RECIPIENT;
     const tokenDecimal = process.env.NEXT_PUBLIC_TOKEN_DECIMALS;
     const validateTransaction = async () => {
       setIsValidating(true);
@@ -73,7 +72,7 @@ const SignTransactionButton = () => {
 
       try {
         await validateTransfer(apiInstance!, blockHash, extrinsicHash, {
-          recipient: recipient as Recipient,
+          recipient: paymentData.recipient as Recipient,
           amount: new BN(paymentData.amount * 10 ** Number(tokenDecimal)),
           remark: paymentData.remark,
           tokenId: 'WND',
@@ -94,7 +93,7 @@ const SignTransactionButton = () => {
       }
     };
     validateTransaction();
-  }, [apiInstance, hasNewTransaction, paymentData.amount, paymentData.remark, setPaymentData]);
+  }, [apiInstance, hasNewTransaction, paymentData, setPaymentData]);
 
   useEffect(() => {
     async function fetchApi() {
@@ -113,14 +112,12 @@ const SignTransactionButton = () => {
           </div>
         </div>
       )}
-      {hashData.blockHash || hashData.extrinsicHash ? (
-        <div className="bg-white p-4 rounded-md flex flex-col gap-2">
-          <span>
-            Extrinsic Hash:{' '}
-            <a className="underline" href={`https://westend.subscan.io/extrinsic/${hashData.extrinsicHash}`}>
-              {hashData.extrinsicHash}
-            </a>
-          </span>
+      {hashData.extrinsicHash ? (
+        <div className="bg-[#141d31] text-white p-4 rounded-md flex flex-col gap-2">
+          <span className="font-bold">Extrinsic Hash:</span>
+          <a className="underline" href={`https://westend.subscan.io/extrinsic/${hashData.extrinsicHash}`}>
+            {hashData.extrinsicHash}
+          </a>
         </div>
       ) : (
         <div className="flex gap-4 items-center">

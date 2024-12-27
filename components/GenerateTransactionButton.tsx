@@ -17,7 +17,6 @@ const GenerateTransactionButton = ({ disabled, apiInstance }: Props) => {
   const config = useRecoilValue(configState);
   const [transactionData, setTransactionData] = useRecoilState(transactionDataState);
 
-  const recipient = process.env.NEXT_PUBLIC_RECIPIENT;
   const tokenDecimal = process.env.NEXT_PUBLIC_TOKEN_DECIMALS;
 
   const onClick = async () => {
@@ -27,7 +26,7 @@ const GenerateTransactionButton = ({ disabled, apiInstance }: Props) => {
       body: JSON.stringify({
         sender: config?.selectedAccount?.address,
         transferField: {
-          recipient,
+          recipient: paymentData.recipient,
           amount: paymentData.amount * 10 ** Number(tokenDecimal),
           remark: paymentData.remark,
         },

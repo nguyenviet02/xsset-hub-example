@@ -19,6 +19,7 @@ export const apiState = atom<ApiPromise | null>({
 export const paymentState = atom<IPaymentState>({
   key: 'paymentState',
   default: {
+    recipient: '',
     remark: `ORDER-${Math.floor(Math.random() * 1000000)}`,
     amount: 0,
     status: PAYMENT_STATUS.FUTURE,
