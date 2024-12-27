@@ -21,23 +21,31 @@ const GenerateTransactionButton = ({ disabled, apiInstance }: Props) => {
 
   const onClick = async () => {
     toast.loading('Generating transaction, you will be redirect to payment page soon');
-    const response = await fetch('/api/create-transfer', {
-      method: 'POST',
-      body: JSON.stringify({
-        sender: config?.selectedAccount?.address,
-        transferField: {
-          recipient: paymentData.recipient,
-          amount: paymentData.amount * 10 ** Number(tokenDecimal),
-          remark: paymentData.remark,
-        },
-      }),
-    });
-    const data = await response.json();
-    const transactionURL = data.transactionURL;
-    const transaction = data.transaction;
-    setTransactionData({ transaction, url: transactionURL });
-    toast.dismiss();
-    router.push('/pending');
+    try {
+      const response = await fetch('/api/create-transfer', {
+        method: 'POST',
+        body: JSON.stringify({
+          sender: config?.selectedAccount?.address,
+          transferField: {
+            recipient: paymentData.recipient,
+            amount: paymentData.amount * 10 ** Number(tokenDecimal),
+            remark: paymentData.remark,
+          },
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        toast.dismiss();
+        throw new Error(data.message);
+      }
+      const transactionURL = data.transactionURL;
+      const transaction = data.transaction;
+      setTransactionData({ transaction, url: transactionURL });
+      toast.dismiss();
+      router.push('/pending');
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   return (
     <button
